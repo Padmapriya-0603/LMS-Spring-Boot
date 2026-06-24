@@ -38,4 +38,8 @@ public class BookController {
     public List<Book> searchBooks(@PathVariable String title){
             return service.searchByTitle(title);
         }
+        @GetMapping("/status/{status}")
+        public List<Book> getBooksByStatus(@PathVariable String status){
+            return service.getBooksByStatus(status);
+        }
     }

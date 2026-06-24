@@ -32,7 +32,6 @@ public class DataLoader implements CommandLineRunner {
                 }
                 System.out.println("Books imported successfully.");
             }
-
         }
         catch(Exception e) {
             System.out.println("ERROR OCCURRED:");

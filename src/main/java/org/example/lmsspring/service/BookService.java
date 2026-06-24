@@ -36,4 +36,7 @@ public class BookService {
         public List<Book> searchByTitle(String title) {
             return repository.findByTitleContaining(title);
         }
+        public List<Book> getBooksByStatus(String status){
+            return repository.findByStatus(status);
+        }
     }
