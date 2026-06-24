@@ -1,5 +1,6 @@
 package org.example.lmsspring.service;
 import jakarta.transaction.Transactional;
+import org.example.lmsspring.exception.BookNotFoundException;
 import org.example.lmsspring.model.Book;
 import org.example.lmsspring.model.Loan;
 import org.example.lmsspring.model.Member;
@@ -21,12 +22,12 @@ public class BorrowService {
     public String borrowBook(Integer memberId, Integer bookId) {
         Book book = bookRepository.findById(bookId).orElse(null);
         if(book == null)
-            return "Book not found";
+            throw new BookNotFoundException("Book not found");
         if(!book.getStatus().equals("AVAILABLE"))
-            return "Book unavailable";
+            throw new RuntimeException("Book already borrowed");
         Member member = memberRepository.findById(memberId).orElse(null);
         if(member == null)
-            return "Member not found";
+            throw new RuntimeException("Member not found");
         Loan loan = new Loan();
         loan.setBook(book);
         loan.setMember(member);

@@ -3,6 +3,8 @@ import org.example.lmsspring.model.Book;
 import org.example.lmsspring.service.BookService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -15,13 +17,13 @@ public class BookController {
             return service.getBooks();
         }
         @PostMapping
-    public Book addBook(@RequestBody Book book){
+    public Book addBook(@Valid @RequestBody Book book){
             return service.addBook(book);
         }
         @GetMapping("/{id}")
-    public Book getBookById(@PathVariable Integer id) {
-        return service.getBookById(id);
-        }
+    public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getBookById(id));
+    }
         @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable Integer id){
             service.deleteBook(id);
