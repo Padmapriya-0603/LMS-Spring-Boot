@@ -1,21 +1,20 @@
-package org.example.lmsspring.model;
-import jakarta.persistence.*;
-@Entity
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+package org.example.lmsspring.dto;
+public class BookResponseDTO {
     private Integer id;
     private String title;
-    @Column(name = "publish_year")
     private int year;
     private String author;
     private double price;
     private String status;
-    public Book() {
+    public BookResponseDTO() {
     }
-    public Book(String title, String author) {
+    public BookResponseDTO(Integer id, String title, int year, String author, double price, String status) {
+        this.id = id;
         this.title = title;
+        this.year = year;
         this.author = author;
+        this.price = price;
+        this.status = status;
     }
     public Integer getId() {
         return id;
@@ -29,17 +28,17 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getAuthor() {
-        return author;
-    }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
     public int getYear() {
         return year;
     }
     public void setYear(int year) {
         this.year = year;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
     }
     public double getPrice() {
         return price;

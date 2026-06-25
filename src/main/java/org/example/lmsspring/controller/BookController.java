@@ -1,4 +1,6 @@
 package org.example.lmsspring.controller;
+import org.example.lmsspring.dto.BookRequestDTO;
+import org.example.lmsspring.dto.BookResponseDTO;
 import org.example.lmsspring.model.Book;
 import org.example.lmsspring.service.BookService;
 import org.springframework.web.bind.annotation.*;
@@ -8,20 +10,26 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/books")
 public class BookController {
-        private final BookService service;
-        public BookController(BookService service) {
+    private final BookService service;
+    public BookController(BookService service) {
             this.service = service;
         }
         @GetMapping
-        public List<Book> getBooks() {
+        public List<BookResponseDTO> getBooks() {
             return service.getBooks();
         }
         @PostMapping
-    public Book addBook(@Valid @RequestBody Book book){
-            return service.addBook(book);
-        }
+    public Book addBook(@Valid @RequestBody BookRequestDTO dto){
+        Book book = new Book();
+        book.setTitle(dto.getTitle());
+        book.setYear(dto.getYear());
+        book.setAuthor(dto.getAuthor());
+        book.setPrice(dto.getPrice());
+        book.setStatus(dto.getStatus());
+        return service.addBook(book);
+    }
         @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
+    public ResponseEntity<BookResponseDTO> getBookById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getBookById(id));
     }
         @DeleteMapping("/{id}")
@@ -29,19 +37,27 @@ public class BookController {
             service.deleteBook(id);
         }
         @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Integer id,@RequestBody Book book){
-            return service.updateBook(id,book);
-        }
+    public Book updateBook(
+            @PathVariable Integer id,
+            @Valid @RequestBody BookRequestDTO dto){
+        Book book = new Book();
+        book.setTitle(dto.getTitle());
+        book.setYear(dto.getYear());
+        book.setAuthor(dto.getAuthor());
+        book.setPrice(dto.getPrice());
+        book.setStatus(dto.getStatus());
+        return service.updateBook(id, book);
+    }
         @GetMapping("/author/{author}")
-    public List<Book> getBooksByAuthor(@PathVariable String author){
+    public List<BookResponseDTO> getBooksByAuthor(@PathVariable String author){
             return service.getBooksByAuthor(author);
         }
         @GetMapping("/search/{title}")
-    public List<Book> searchBooks(@PathVariable String title){
+    public List<BookResponseDTO> searchBooks(@PathVariable String title){
             return service.searchByTitle(title);
         }
         @GetMapping("/status/{status}")
-        public List<Book> getBooksByStatus(@PathVariable String status){
+        public List<BookResponseDTO> getBooksByStatus(@PathVariable String status){
             return service.getBooksByStatus(status);
         }
     }
