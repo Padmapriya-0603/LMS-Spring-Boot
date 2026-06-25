@@ -8,6 +8,7 @@ import org.example.lmsspring.repository.BookRepository;
 import org.example.lmsspring.repository.LoanRepository;
 import org.example.lmsspring.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
 @Service
 public class BorrowService {
     private final BookRepository bookRepository;
@@ -46,5 +47,8 @@ public class BorrowService {
         bookRepository.save(book);
         loanRepository.delete(loan);
         return "Book returned successfully";
+    }
+    public List<Loan> getAllLoans() {
+        return loanRepository.findAll();
     }
 }

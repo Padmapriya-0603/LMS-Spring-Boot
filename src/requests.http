@@ -1,10 +1,2 @@
-GET http://localhost:8080/books
-Content-Type: application/json
-
-{
-  "title": "Effective Java",
-  "year": 2018,
-  "author": "Joshua Bloch",
-  "price": 850,
-  "status": "AVAILABLE"
-}
+POST http://localhost:8080/books
+Authorization: Basic YWRtaW46YWRtaW4xMjM=

@@ -1,6 +1,8 @@
 package org.example.lmsspring.controller;
+import org.example.lmsspring.model.Loan;
 import org.example.lmsspring.service.BorrowService;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 @RestController
 @RequestMapping("/loan")
 public class BorrowController {
@@ -15,5 +17,9 @@ public class BorrowController {
     @DeleteMapping("/{loanId}")
     public String returnBook(@PathVariable Integer loanId) {
         return borrowService.returnBook(loanId);
+    }
+    @GetMapping
+    public List<Loan> getAllLoans() {
+        return borrowService.getAllLoans();
     }
 }
